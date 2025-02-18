@@ -121,6 +121,10 @@
     swww
     kitty
     rofi-wayland
+    (pkgs.waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      })
+    )
   ];
 
   programs.hyprland = {
@@ -132,14 +136,6 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
   };
-
-  environment.systemPackages = [
-
-    (pkgs.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      })
-    )
-  ];
 
   hardware = {
     opengl.enable = true;
