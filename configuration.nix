@@ -112,9 +112,15 @@
     pkgs.krita
     pkgs.libresprite
     pkgs.discord
+    pkgs.waybar
+    pkgs.dunst
+    libnotify
     wget
     git
     pkgs.home-manager
+    swww
+    kitty
+    rofi-wayland
   ];
 
   programs.hyprland = {
@@ -127,10 +133,21 @@
     NIXOS_OZONE_WL = "1";
   };
 
+  environment.systemPackages = [
+
+    (pkgs.waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      })
+    )
+  ];
+
   hardware = {
     opengl.enable = true;
     nvidia.modesetting.enable = true;
   };
+
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
