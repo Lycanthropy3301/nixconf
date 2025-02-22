@@ -103,6 +103,18 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  fonts.packages = with pkgs; [
+    fira-code
+    fira-code-symbols
+    font-awesome
+    liberation_ttf
+    mplus-outline-fonts.githubRelease
+    # nerdfonts
+    noto-fonts
+    noto-fonts-emoji
+    proggyfonts
+  ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -125,6 +137,7 @@
         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
       })
     )
+    gtk3
   ];
 
   programs.hyprland = {
@@ -137,6 +150,13 @@
     NIXOS_OZONE_WL = "1";
   };
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  services.blueman.enable = true;
+
   hardware = {
     opengl.enable = true;
     nvidia.modesetting.enable = true;
@@ -144,6 +164,10 @@
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+ 
+  #services.xserver.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm.wayland.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
