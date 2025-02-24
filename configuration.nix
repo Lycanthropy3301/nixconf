@@ -109,7 +109,8 @@
     font-awesome
     liberation_ttf
     mplus-outline-fonts.githubRelease
-    # nerdfonts
+    nerd-fonts._3270
+    cantarell-fonts
     noto-fonts
     noto-fonts-emoji
     proggyfonts
@@ -124,11 +125,15 @@
     pkgs.krita
     pkgs.libresprite
     pkgs.discord
+    pkgs.spotify
     pkgs.waybar
     pkgs.dunst
     libnotify
+    volatility3
     wget
     git
+    python314
+    python314Packages.pip
     pkgs.home-manager
     swww
     kitty
