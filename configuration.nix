@@ -129,15 +129,16 @@
     pkgs.waybar
     pkgs.dunst
     libnotify
-    volatility3
     wget
     git
     python314
-    python314Packages.pip
     pkgs.home-manager
     swww
     kitty
+    sway
     rofi-wayland
+    wofi
+    hyprpaper
     (pkgs.waybar.overrideAttrs (oldAttrs: {
         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
       })
