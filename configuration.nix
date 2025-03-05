@@ -14,7 +14,7 @@
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
-      sylvxn = import /home/sylvxn/.config/home-manager/home.nix;
+      sylvxn = (import /home/sylvxn/.config/home-manager/home.nix);
     };
   };
 
@@ -139,6 +139,13 @@
     rofi-wayland
     wofi
     hyprpaper
+    protonvpn-gui
+    neofetch
+    jetbrains.idea-community
+    rclone
+    jdk17
+    vesktop
+    mindustry-wayland
     (pkgs.waybar.overrideAttrs (oldAttrs: {
         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
       })
