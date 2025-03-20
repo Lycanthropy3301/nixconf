@@ -21,7 +21,8 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
+  boot.kernelParams = [ "kvm.enable_virt_at_load=0" ];
+  
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -76,7 +77,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -124,14 +125,15 @@
     pkgs.obsidian
     pkgs.krita
     pkgs.libresprite
-    pkgs.discord
-    pkgs.spotify
+    # pkgs.discord
+    # pkgs.spotify
     pkgs.waybar
     pkgs.dunst
     libnotify
     wget
     git
-    python314
+    pavucontrol
+    python312
     pkgs.home-manager
     swww
     kitty
@@ -143,8 +145,16 @@
     neofetch
     jetbrains.idea-community
     rclone
+    #  virtualbox
+    prismlauncher
+    spicetify-cli
+    mpv
     jdk17
+    lshw
+    monitor
     vesktop
+    mov-cli
+    python312Packages.pip
     mindustry-wayland
     (pkgs.waybar.overrideAttrs (oldAttrs: {
         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
@@ -157,6 +167,15 @@
     enable = true;
     xwayland.enable = true;
   };
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
+
+  services.flatpak.enable = true;
 
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
@@ -171,8 +190,23 @@
   services.blueman.enable = true;
 
   hardware = {
+    graphics.enable = true;
     opengl.enable = true;
-    nvidia.modesetting.enable = true;
+  };
+
+  hardware.nvidia = {
+  
+    modesetting.enable = true;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+  };
+
+  hardware.nvidia.prime = {
+    sync.enable = true;    
+    amdgpuBusId = "PCI:5:0:0";
+    nvidiaBusId = "PCI:1:0:0";
   };
 
   xdg.portal.enable = true;
@@ -181,6 +215,11 @@
   #services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.displayManager.sddm.wayland.enable = true;
+  services.xserver.videoDrivers = ["nvidia"];
+
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+  users.extraGroups.vboxusers.members = [ "sylvxn" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
