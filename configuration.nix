@@ -128,16 +128,22 @@
     # pkgs.discord
     # pkgs.spotify
     pkgs.waybar
+    wl-clipboard
     pkgs.dunst
     libnotify
     wget
     git
+    osu-lazer
+    glfw
+    boost
     pavucontrol
     python312
     pkgs.home-manager
     swww
     kitty
     sway
+    slurp
+    grim
     rofi-wayland
     wofi
     hyprpaper
@@ -152,8 +158,15 @@
     jdk17
     lshw
     monitor
+    gradle_8
+    neovim
+    fabric-installer
     vesktop
+    libinput-gestures
     mov-cli
+    gdb
+    # pwndbg
+    python312Packages.numpy
     python312Packages.pip
     mindustry-wayland
     (pkgs.waybar.overrideAttrs (oldAttrs: {

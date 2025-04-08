@@ -11,6 +11,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprland.url = "github:hyprwm/Hyprland";
+
+    hyprgrass = {
+      url = "github:horriblename/hyprgrass";
+      inputs.hyprland.follows = "hyprland";
+    };
+
   };
 
   outputs = { self, nixpkgs, ... }@inputs:

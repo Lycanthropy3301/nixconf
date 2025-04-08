@@ -71,6 +71,14 @@
     EDITOR = "vim";
   };
 
+  wayland.windowManager.hyprland = {
+    plugins = [
+      inputs.hyprgrass.packages.${pkgs.system}.default
+
+      inputs.hyprgrass.packages.${pkgs.system}.hyprgrass-pulse
+    ]; 
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
