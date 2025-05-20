@@ -19,6 +19,12 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    mechabar = {
+      url = "github:Lycanthropy3301/mechabar-nix24/animated";
+      # url = "github:rickyrnt/mechabar-nix/animated";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = { self, nixpkgs, ... }@inputs:

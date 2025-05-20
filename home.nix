@@ -1,6 +1,19 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs, inputs, ... }:
+let
+  mechasrc = pkgs.fetchFromGitHub {
+    owner = "rickyrnt";
+    repo = "mechabar-nix";
+    rev = "459dcd9d6b4ed438aae1515ab8db1de425d0a30a";
+    hash = "sha256-PkV7q6Wcfs20RpPT2dUZMB5dCJfGAdT1wvh52muSGb4=";
+  };
+in
 {
+  imports = [
+    inputs.mechabar.mechabar
+  ];
+
+  programs.waybar.mechabar.enable = true;
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "sylvxn";
@@ -18,6 +31,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+  
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -35,6 +49,14 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+  
+#  imports = [
+#    "${mechasrc}/mechabar.nix"
+#  ];
+
+  #programs.waybar.mechabar.enable = true;
+
+  xdg.enable = true;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -69,14 +91,6 @@
   #
   home.sessionVariables = {
     EDITOR = "vim";
-  };
-
-  wayland.windowManager.hyprland = {
-    plugins = [
-      inputs.hyprgrass.packages.${pkgs.system}.default
-
-      inputs.hyprgrass.packages.${pkgs.system}.hyprgrass-pulse
-    ]; 
   };
 
   # Let Home Manager install and manage itself.

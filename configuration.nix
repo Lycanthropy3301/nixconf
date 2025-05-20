@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { inputs, config, pkgs, ... }:
-
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -13,8 +12,14 @@
 
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
-    users = {
-      sylvxn = (import /home/sylvxn/.config/home-manager/home.nix);
+    #users = {
+    #  sylvxn = (import ./home.nix)
+    #};
+    users.sylvxn = rec {
+      imports = [
+        ./home.nix
+	# inputs.mechabar.mechabar
+      ];
     };
   };
 
@@ -110,17 +115,20 @@
     font-awesome
     liberation_ttf
     mplus-outline-fonts.githubRelease
+    #nerdfonts
     nerd-fonts._3270
     cantarell-fonts
     noto-fonts
+    jetbrains-mono
     noto-fonts-emoji
     proggyfonts
-  ];
+  ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
+    brightnessctl
     pkgs.librewolf
     pkgs.obsidian
     pkgs.krita
@@ -133,10 +141,14 @@
     libnotify
     wget
     git
-    osu-lazer
+#    osu-lazer
     glfw
+    pkgs.zstd.dev
     boost
+    musescore
     pavucontrol
+    scrcpy
+    thunderbird
     python312
     pkgs.home-manager
     swww
@@ -153,11 +165,17 @@
     rclone
     #  virtualbox
     prismlauncher
+
+    # Security
+    autopsy
+    foremost
+    unzip
+
     spicetify-cli
     mpv
     jdk17
     lshw
-    monitor
+    #monitor
     gradle_8
     neovim
     fabric-installer
@@ -176,10 +194,14 @@
     gtk3
   ];
 
+  # programs.waybar.mechabar.enable = true;
+
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
   };
+
+  hardware.opentabletdriver.enable = true;
 
   programs.steam = {
     enable = true;
